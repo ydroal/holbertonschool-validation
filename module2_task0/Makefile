@@ -7,19 +7,19 @@ help:
 	@echo "clean: Stop the application and delete the binary and log file"
 	@echo "test: Test the application to ensure it behaves as expected"
 
-build:
+build: ##Compile the source code of the application
 	go build -o awesome-api
 
-run:
+run: ##Run the application in the background
 	./awesome-api >./awesome-api.log 2>&1 &
 
-stop:
+stop: ##Stop the application
 	-kill "$(shell pgrep awesome-api)"
 
-clean: stop
+clean: stop  ##Stop the application and delete the binary and log file.
 	-rm ./awesome-api
 	-rm ./awesome-api.log
 
-test:
+test: ##Test the application to ensure it behaves as expected
 	curl http://localhost:9999
 	curl http://localhost:9999/health

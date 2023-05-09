@@ -2,6 +2,13 @@
 
 This is a simple HTTP API for the Awesome Inc. website.
 
+# Prerequisites
+
+Before you start, make sure you have the following installed:
+
+Go (version 1.15)
+curl
+
 ## Features
 
 - Returns a 404 Not Found for requests to the root path ("/") (e.g. http://localhost:9999/ or http://localhost:9999)

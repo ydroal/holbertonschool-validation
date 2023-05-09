@@ -1,11 +1,7 @@
 .PHONY: help build run stop clean test
 
-help:
-	@echo "build: Compile the source code of the application"
-	@echo "run: Run the application in the background"
-	@echo "stop: Stop the application"
-	@echo "clean: Stop the application and delete the binary and log file"
-	@echo "test: Test the application to ensure it behaves as expected"
+help: ## Display this help message
+	@cat Makefile | grep '##' | tr -d '##'
 
 build: ##Compile the source code of the application
 	go build -o awesome-api
@@ -16,7 +12,7 @@ run: ##Run the application in the background
 stop: ##Stop the application
 	-kill "$(shell pgrep awesome-api)"
 
-clean: stop  ##Stop the application and delete the binary and log file.
+clean: stop  ##Stop the application and delete the binary and log file
 	-rm ./awesome-api
 	-rm ./awesome-api.log
 

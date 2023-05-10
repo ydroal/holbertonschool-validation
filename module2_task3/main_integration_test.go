@@ -35,7 +35,7 @@ func Test_server(t *testing.T) {
       name:         "HealthCheck page",
       URI:          "/health",
       responseCode: 200,
-      body:         "ALIVE!",
+      body:         "ALIVE",
     },
 		{
       name:         "No name",

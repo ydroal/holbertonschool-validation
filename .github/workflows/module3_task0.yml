@@ -1,0 +1,25 @@
+---
+# Workflow名
+name: module3_task0
+# イベントトリガー
+# Git Pushした時にこのワークフローを実行する
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  # job名(任意の名前で良い)
+  module3_task0:
+    runs-on: ubuntu-22.04
+    # jobのステップ
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Build and test
+        run: |
+          cd module3_task0
+          make help

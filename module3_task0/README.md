@@ -25,3 +25,14 @@
 - validate: Validate the file dist/index.html using the command line Holberton’s W3C Validator.
 
 - help: Display help message.
+
+## Workflow
+As part of the continuous integration process, this project uses GitHub Actions to automate the execution of certain tasks, such as running the make help command.
+
+The workflow is defined in the .github/workflows/module3_task0.yml file. This workflow is triggered whenever changes are pushed to the main branch, and it is also scheduled to run at least once a day.
+
+The workflow consists of one job that includes the following steps:
+
+Checkout the repository code using the actions/checkout@v3 action.
+Navigate to the directory containing the program code.
+Run the make help command to verify that the Makefile exists and that it implements the help target.

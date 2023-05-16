@@ -13,4 +13,5 @@ if ! dpkg -s hugo >/dev/null 2>&1; then
   curl -Lo install_hugo.deb https://github.com/gohugoio/hugo/releases/download/v0.109.0/hugo_extended_0.109.0_linux-amd64.deb
   # Install the latest version of 'Hugo'
   apt-get install ./install_hugo.deb
-fi
+# Install golangci-lint
+curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.42.1

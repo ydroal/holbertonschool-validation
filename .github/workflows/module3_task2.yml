@@ -56,3 +56,4 @@ jobs:
         run: |
           cd module3_task2/
           make clean
+          

@@ -14,6 +14,4 @@ if ! dpkg -s hugo >/dev/null 2>&1; then
   # Install the latest version of 'Hugo'
   sudo apt-get install ./install_hugo.deb
 fi
-
-
-
+npm install -g markdownlint-cli

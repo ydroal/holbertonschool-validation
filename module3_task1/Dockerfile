@@ -18,14 +18,14 @@ RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - \
 
 RUN npm install -g npm@9.5.1
 
-## Install Golang from binary distribution (ARM64向けに書き換え)
+## Install Golang from binary distribution
 ARG GO_VERSION="1.20.4"
-ARG GO_CHECKSUM="105889992ee4b1d40c7c108555222ca70ae43fccb42e20fbf1eebb822f5e72c6"
+ARG GO_CHECKSUM="698ef3243972a51ddb4028e4a1ac63dc6d60821bf18e59a807e051fee0a385bd"
 # No need to use C-Go and avoid requirement to GCC
 ENV CGO_ENABLED=0
 ENV GO11MODULES=on
 RUN curl --silent --show-error --location --output /tmp/go.tgz \
-    "https://golang.org/dl/go${GO_VERSION}.linux-arm64.tar.gz" \
+    "https://golang.org/dl/go${GO_VERSION}.linux-amd64.tar.gz" \
   # Control the checksum to ensure no one is messing up with the download
   && sha256sum /tmp/go.tgz | grep -q "${GO_CHECKSUM}" \
   # Extract to a directory part of the default PATH
@@ -46,6 +46,7 @@ RUN usermod -aG sudo student
 RUN echo 'student ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 # Switch to the student user
+ENV PATH=$PATH:/home/student/go/bin/
 USER student
 
 # Set the default command to run as the student user

@@ -21,6 +21,11 @@ markdownlint: ## updated to lint the files README.md and DEPLOY.md
 	markdownlint README.md
 	markdownlint DEPLOY.md
 
+unit-tests: ## Runs different makefile recipes
+	make POST_TITLE='TEST' POST_NAME='this-is-a-test' post
+	make build
+	make clean
+
 package: ## Generate an archive (zip file named awesome-website.zip)
 	make build
 	zip -r awesome-website.zip dist/	

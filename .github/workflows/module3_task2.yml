@@ -40,6 +40,11 @@ jobs:
           cd module3_task2/
           make POST_TITLE="Test" POST_NAME="name" post
 
+      - name: Run unit tests
+        run: |
+          cd module3_task2/
+          make unit-tests
+
       - name: Package
         run: |
           cd module3_task2/

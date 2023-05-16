@@ -20,7 +20,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Install dependencies
-        run: ./module3_task1/setup.sh
+        run: sudo ./module3_task1/setup.sh
 
       - name: Build and test
         run: |

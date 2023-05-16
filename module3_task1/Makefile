@@ -6,13 +6,6 @@ POST_NAME ?=
 build: check  ## Generate the website from the markdown and configuration files in the directory dist/.
 	hugo -d dist
 
-##check:	## Succeed by default, and fail when presented with a dead link or a badly written Markdown file
-##	markdownlint --fix README.md content/posts/*
-##	markdown-link-check README.md content/posts/*
-
-validate:	## Validate generated HTML with W3C validator.
-	python3 /opt/W3C-Validator/w3c_validator.py ./dist/index.html || true
-
 clean: ## Cleanup the content of the directory dist/
 	rm -rf dist/*
 

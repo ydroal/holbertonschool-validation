@@ -50,6 +50,11 @@ jobs:
           cd module3_task2/
           make integration-tests
 
+      - name: Run validation
+        run: |
+          cd module3_task2/
+          make validate
+
       - name: Package
         run: |
           cd module3_task2/

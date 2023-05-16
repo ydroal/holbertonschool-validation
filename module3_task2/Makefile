@@ -21,7 +21,11 @@ markdownlint: ## updated to lint the files README.md and DEPLOY.md
 	markdownlint README.md
 	markdownlint DEPLOY.md
 
-unit-tests: ## Runs different makefile recipes
+integration-tests: ## Run integration tests
+	hugo
+	ls dist/
+
+unit-tests: ## Run unit tests
 	make POST_TITLE='TEST' POST_NAME='this-is-a-test' post
 	make build
 	make clean

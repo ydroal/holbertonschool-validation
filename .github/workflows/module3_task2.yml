@@ -45,6 +45,11 @@ jobs:
           cd module3_task2/
           make unit-tests
 
+      - name: Run integration tests
+        run: |
+          cd module3_task2/
+          make integration-tests
+
       - name: Package
         run: |
           cd module3_task2/

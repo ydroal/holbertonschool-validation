@@ -1,0 +1,53 @@
+---
+# Workflow名
+name: module3_task2
+# イベントトリガー
+# Git Pushした時にこのワークフローを実行する
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  # job名(任意の名前で良い)
+  module3_task2:
+    runs-on: ubuntu-22.04
+    # jobのステップ
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          cd module3_task2/
+          chmod u+x setup.sh
+          sudo ./setup.sh
+
+      - name: Build
+        run: |
+          cd module3_task2/
+          make build
+
+      - name: Post
+        run: |
+          cd module3_task2/
+          make POST_TITLE="Test" POST_NAME="name" post
+          
+      - name: Clean
+        run: |
+          cd module3_task2/
+          make clean
+
+      - name: Package
+        run: |
+          cd module3_task2/
+          make package
+
+      - name: Archive
+        if: ${{ success()}}
+        uses: actions/upload-artifact@v3
+        with:
+          name: awesome-website
+          path: module3_task2/awesome-website.zip

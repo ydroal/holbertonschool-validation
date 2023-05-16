@@ -11,7 +11,15 @@ clean: ## Cleanup the content of the directory dist/
 
 post: ## Create a new blog post with filename and title come from the environment variables.
 	hugo new posts/$(POST_NAME).md
-	sed -i 's/title: .*/title:"$(POST_TITLE)"/' content/posts/$(POST_NAME).md
+	sed -i 's/title: .*/title: "$(POST_TITLE)"/' content/posts/$(POST_NAME).md
+
+lint: ## shellcheck setup
+	markdownlint DEPLOY.md
+	shellcheck setup.sh >/dev/null 2>&1 || echo "Lint Failed"
+
+markdownlint: ## updated to lint the files README.md and DEPLOY.md
+	markdownlint README.md
+	markdownlint DEPLOY.md
 
 package: ## Generate an archive (zip file named awesome-website.zip)
 	make build

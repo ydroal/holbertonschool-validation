@@ -25,26 +25,20 @@ jobs:
           chmod u+x setup.sh
           sudo ./setup.sh
 
+      - name: Lint
+        run: |
+          cd module3_task2/
+          make lint
+
       - name: Build
         run: |
           cd module3_task2/
           make build
 
-      - name: Debugging before post
-        run: |
-          echo "POST_NAME: ${{ env.POST_NAME }}"
-          echo "POST_TITLE: ${{ env.POST_TITLE }}"
-          ls -l module3_task2/content/posts/
-
       - name: Post
         run: |
           cd module3_task2/
           make POST_TITLE="Test" POST_NAME="name" post
-
-      - name: Debugging after post
-        run: |
-          ls -l module3_task2/content/posts/
-          cat module3_task2/content/posts/name.md
 
       - name: Package
         run: |

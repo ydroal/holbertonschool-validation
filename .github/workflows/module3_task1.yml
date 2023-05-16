@@ -20,9 +20,12 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Install dependencies
-        run: sudo ./module3_task1/setup.sh
+        run: |
+          sudo ./module3_task1/setup.sh
+          echo "export PATH=\$PATH:/home/student/go/bin" >> $HOME/.bashrc
 
       - name: Build and test
         run: |
+          source $HOME/.bashrc
           cd module3_task1
           make build

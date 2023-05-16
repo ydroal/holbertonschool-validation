@@ -3,3 +3,7 @@ languageCode = "en-us"
 title = "Awesome Inc."
 theme = "ananke"
 publishDir = "dist"
+
+[module]
+  [module.hugoVersion]
+    min = "0.84.0"

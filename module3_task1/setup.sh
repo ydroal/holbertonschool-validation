@@ -14,7 +14,6 @@ if ! dpkg -s hugo >/dev/null 2>&1; then
   # Install the latest version of 'Hugo'
   sudo apt-get install ./install_hugo.deb
 fi
-# Install golangci-lint
-curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $HOME/go/bin v1.42.1
 
-export PATH=$PATH:$HOME/go/bin
+
+

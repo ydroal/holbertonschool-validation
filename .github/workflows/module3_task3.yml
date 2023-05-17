@@ -1,0 +1,86 @@
+---
+# Workflow名
+name: module3_task3
+# イベントトリガー
+# Git Pushした時にこのワークフローを実行する
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - '*'
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  # job名(任意の名前で良い)
+  module3_task3:
+    runs-on: ubuntu-22.04
+    # jobのステップ
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          cd module3_task3/
+          chmod u+x setup.sh
+          sudo ./setup.sh
+
+      - name: Lint
+        run: |
+          cd module3_task3/
+          make lint
+
+      - name: Build
+        run: |
+          cd module3_task3/
+          make build
+
+      - name: Post
+        run: |
+          cd module3_task3/
+          make POST_TITLE="Test" POST_NAME="name" post
+
+      - name: Run unit tests
+        run: |
+          cd module3_task3/
+          make unit-tests
+
+      - name: Run integration tests
+        run: |
+          cd module3_task3/
+          make integration-tests
+
+      - name: Run validation
+        run: |
+          cd module3_task3/
+          make validate
+
+      - name: Package
+        run: |
+          cd module3_task3/
+          make package
+
+      - name: Archive
+        if: ${{ success()}}
+        uses: actions/upload-artifact@v3
+        with:
+          name: awesome-website
+          path: module3_task3/awesome-website.zip
+
+      - name: Release
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          TOKEN: ${{ secrets.TOKEN }}
+        uses: softprops/action-gh-release@v1 # GitHubリリースを作成
+        with:
+          tag_name: 1.0.0
+          files: |
+            module3_task3/awesome-website.zip
+            module3_task3/DEPLOY.md
+
+      - name: Clean
+        run: |
+          cd module3_task3/
+          make clean

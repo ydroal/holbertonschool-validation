@@ -1,21 +1,20 @@
-# Deployment Guide
+# Deployement
 
-The archive `awesome-website.zip` contains the `dist/`
-directory which includes all the necessary files to run the website.
+## What is in the archive and how unarchive it
 
-## Creating a new release
+* the archive contains the latest build and the api binary.
+  The archive can be found under either in uploads or releases
+  if a tags is used v1.0.0
+* add the archive awesome-website.zip to the release 1.0.0
 
-To create a new release.
-You can do this using the `git tag` command, followed by the tag name.
-For example: git tag 1.0.0
+## What are the commands to start and stop the application
 
-This will create a new tag named "1.0.0".
+* use: hugo server
 
-After creating the tag, you need to push it to the GitHub repository.  
-You can do this using the `git push` command, followed by the name of the tag.
-For example: git push origin 1.0.0
+## How to customize where the application logs are written
 
-This will push the tag "1.0.0" to the GitHub repository.
+* to be determined
 
-Once the tag is pushed, a new release will be automatically created in
-the GitHub repository, thanks to a GitHub Action workflow that has been set up.
+## How to “quickly” verify that the application is running
+
+* use: <http://localhost:1313>

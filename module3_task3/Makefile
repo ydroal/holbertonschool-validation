@@ -31,7 +31,7 @@ unit-tests: ## Run unit tests
 	make clean
 
 validate:	## Validate the file dist/index.html using the command line Holberton’s W3C Validator.
-	python3 /opt/W3C-Validator/w3c_validator.py ./dist/index.html || trueKf
+	python3 /opt/W3C-Validator/w3c_validator.py ./dist/index.html || true
 
 package: ## Generate an archive (zip file named awesome-website.zip)
 	make build

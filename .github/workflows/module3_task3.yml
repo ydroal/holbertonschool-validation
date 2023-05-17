@@ -17,6 +17,8 @@ jobs:
   # job名(任意の名前で良い)
   module3_task3:
     runs-on: ubuntu-22.04
+    permissions:
+      contents: write
     # jobのステップ
     steps:
       - name: Check out code

@@ -7,8 +7,6 @@ on:
   push:
     branches:
       - main
-    tags:
-      - '*'
   schedule:
     - cron: "0 0 * * *"
 
@@ -62,6 +60,16 @@ jobs:
           cd module3_task3/
           make package
 
+      - name: Release
+        env:
+          TOKEN: ${{ secrets.TOKEN }}
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: 1.0.0
+          files: |
+            module3_task3/awesome-website.zip
+            module3_task3/DEPLOY.md
+            
       - name: Archive
         if: ${{ success()}}
         uses: actions/upload-artifact@v3
@@ -69,16 +77,6 @@ jobs:
           name: awesome-website
           path: module3_task3/awesome-website.zip
 
-      - name: Release
-        if: startsWith(github.ref, 'refs/tags/')
-        env:
-          TOKEN: ${{ secrets.TOKEN }}
-        uses: softprops/action-gh-release@v1 # GitHubリリースを作成
-        with:
-          tag_name: 1.0.0
-          files: |
-            module3_task3/awesome-website.zip
-            module3_task3/DEPLOY.md
 
       - name: Clean
         run: |

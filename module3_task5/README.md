@@ -1,5 +1,9 @@
 ## Prerequisites
 
+- Hugo
+- Python3
+- Netlify CLI
+
 ## Lifecycle
 
 - build: Compile the source code of the website with the command make build.
@@ -42,3 +46,4 @@ The build workflow includes the following steps:
 - Package the website into a zip file using the make package command.
 - Archive the zip file only if all the previous steps are successful using the actions/upload-artifact@v3 action.
 - Create a new GitHub release with the zip file and the content of DEPLOY.md only if the workflow is triggered by a new tag using the softprops/action-gh-release@v1 action.
+- Deploy the website to a Netlify preview site on Pull Requests and to production on the principal branch using the nwtgck/actions-netlify@v2.0 action.

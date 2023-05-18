@@ -1,0 +1,91 @@
+---
+# Workflow名
+name: module3_task4
+# イベントトリガー
+# Git Push、Pullした時にこのワークフローを実行する
+on:
+  push:
+    branches:
+      - main
+      - master
+    tags:
+      - '*'
+  schedule:
+    - cron: "0 0 * * *"
+  pull_request:
+    types: [opened, reopened, edited, ready_for_review, synchronize]
+
+jobs:
+  # job名(任意の名前で良い)
+  module3_task4:
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+    # jobのステップ
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          cd module3_task4/
+          chmod u+x setup.sh
+          sudo ./setup.sh
+
+      - name: Lint
+        run: |
+          cd module3_task4/
+          make lint
+
+      - name: Build
+        run: |
+          cd module3_task4/
+          make build
+
+      - name: Post
+        run: |
+          cd module3_task4/
+          make POST_TITLE="Test" POST_NAME="name" post
+
+      - name: Run unit tests
+        run: |
+          cd module3_task4/
+          make unit-tests
+
+      - name: Run integration tests
+        run: |
+          cd module3_task4/
+          make integration-tests
+
+      - name: Run validation
+        run: |
+          cd module3_task4/
+          make validate
+
+      - name: Package
+        run: |
+          cd module3_task4/
+          make package
+
+      - name: Release
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          TOKEN: ${{ secrets.TOKEN }}
+        uses: softprops/action-gh-release@v1 # GitHubリリースを作成
+        with:
+          tag_name: 1.0.1
+          files: |
+            module3_task4/awesome-website.zip
+            module3_task4/DEPLOY.md
+
+      - name: Archive
+        if: ${{ success() }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: awesome-website
+          path: module3_task4/awesome-website.zip
+
+      - name: Clean
+        run: |
+          cd module3_task4/
+          make clean

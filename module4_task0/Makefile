@@ -14,6 +14,9 @@ post: ## Create a new blog post with filename and title come from the environmen
 	$(HUGO) new posts/$(POST_NAME).md
 	sed -i 's/title: .*/title: "$(POST_TITLE)"/' content/posts/$(POST_NAME).md
 
+clean:	## Stop the application. Delete the binary and the log file.
+	$(RM) $(TARGET) $(TARGET).log coverage-units.out coverage-integrations.out dist/* awesome-website.zip
+
 unit-tests: ## Run unit tests
 	make clean
 	make build
@@ -36,9 +39,6 @@ package: ## Generate an archive (a zip file named awesome-website.zip).
 
 deploy:	## Deploy the website to Netlify.
 	netlify deploy --prod --dir=./dist/
-
-clean:	## Stop the application. Delete the binary and the log file.
-	$(RM) $(TARGET) $(TARGET).log coverage-units.out coverage-integrations.out dist/* awesome-website.zip
 
 help:	## Print the list of targets with descriptions.
 	@cat Makefile | grep '##' | tr -d '##'

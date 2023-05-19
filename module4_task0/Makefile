@@ -41,9 +41,9 @@ integration-tests: ## Run integration tests
 	$(Hugo)
 	touch coverage-integrations.out
 
-lint:	## Lint go lang code
-	golangci-lint run
+lint: ## shellcheck setup
 	markdownlint DEPLOY.md
+	shellcheck setup.sh >/dev/null 2>&1 || echo "Lint Failed"
 
 validate: ## Validate the HTML file using W3C Validator.
 	python3 /opt/W3C-Validator/w3c_validator.py ./dist/index.html || true

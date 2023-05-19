@@ -15,7 +15,3 @@ if ! dpkg -s hugo >/dev/null 2>&1; then
   sudo apt-get install ./install_hugo.deb
 fi
 npm install -g markdownlint-cli
-if ! command -v golangci-lint >/dev/null 2>&1; then
-  echo "Installing golangci-lint..."
-  curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.42.1
-fi

@@ -9,18 +9,11 @@ DOCKER=docker run $(DOCKER_OPTIONS)
 DOCKER_IMAGE=golang:1.20.4-buster
 
 build:	## Generate the source code of the application to a binary.
-	$(Hugo)
-	touch awesome-api
+	$(HUGO) -d dist
 
-run:	## Run the application in background by executing the binary.
-	./$(TARGET) >./$(TARGET).log 2>&1 &
-
-post:	## Create a new blog post whose filename and title come from the environment variables POST_TITLE and POST_NAME
-	$(DOCKER) $(DOCKER_IMAGE) sh -c "$(HUGO) new posts/$(POST_NAME).md \
-	&& sed -i 's/title: .*/title: \"$(POST_TITLE)\"/' content/posts/$(POST_NAME).md"
-
-stop:	## Stop the application.
-	@pkill $(TARGET)
+post: ## Create a new blog post with filename and title come from the environment variables.
+	$(HUGO) new posts/$(POST_NAME).md
+	sed -i 's/title: .*/title: "$(POST_TITLE)"/' content/posts/$(POST_NAME).md
 
 clean:	## Stop the application. Delete the binary and the log file.
 	@if pgrep -x $(TARGET) > /dev/null; then \
@@ -28,17 +21,13 @@ clean:	## Stop the application. Delete the binary and the log file.
 	fi
 	@$(RM) $(TARGET) $(TARGET).log $(COVERAGE)-units.out $(COVERAGE)-integrations.out dist/* awesome-website.zip	
 
-test:	## Test the application.
-	$(DOCKER) $(DOCKER_IMAGE) sh -c "$(MAKE) unit-tests \
-	&& $(MAKE) integration-tests"
-
 unit-tests: ## Run unit tests
 	make build
 	make clean
 	touch coverage-units.out
 
 integration-tests: ## Run integration tests
-	$(Hugo)
+	$(HUGO)
 	touch coverage-integrations.out
 
 lint: ## shellcheck setup

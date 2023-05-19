@@ -14,4 +14,8 @@ if ! dpkg -s hugo >/dev/null 2>&1; then
   # Install the latest version of 'Hugo'
   sudo apt-get install ./install_hugo.deb
 fi
+if ! command -v node >/dev/null 2>&1; then
+  curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+  sudo apt-get install -y nodejs
+fi
 npm install -g markdownlint-cli

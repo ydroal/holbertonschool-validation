@@ -2,7 +2,6 @@ GO=go
 TARGET=awesome-api
 RM=rm -rf
 MAKE=make
-COVERAGE=coverage ##テストカバレッジを出力するためのファイル名のプレフィックス
 HUGO=hugo
 DOCKER_OPTIONS=--rm --tty --volume=`pwd`:/app --workdir=/app
 DOCKER=docker run $(DOCKER_OPTIONS)
@@ -39,7 +38,7 @@ deploy:	## Deploy the website to Netlify.
 	netlify deploy --prod --dir=./dist/
 
 clean:	## Stop the application. Delete the binary and the log file.
-	$(RM) $(TARGET) $(TARGET).log $(COVERAGE)-units.out $(COVERAGE)-integrations.out dist/* awesome-website.zip
+	$(RM) $(TARGET) $(TARGET).log coverage-units.out coverage-integrations.out dist/* awesome-website.zip
 
 help:	## Print the list of targets with descriptions.
 	@cat Makefile | grep '##' | tr -d '##'

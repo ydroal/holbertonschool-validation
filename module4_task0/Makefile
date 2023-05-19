@@ -1,5 +1,6 @@
 GO=go
 TARGET=awesome-api
+RM=rm -rf
 MAKE=make
 COVERAGE=coverage ##テストカバレッジを出力するためのファイル名のプレフィックス
 HUGO=hugo
@@ -14,12 +15,9 @@ post: ## Create a new blog post with filename and title come from the environmen
 	$(HUGO) new posts/$(POST_NAME).md
 	sed -i 's/title: .*/title: "$(POST_TITLE)"/' content/posts/$(POST_NAME).md
 
-clean:	## Stop the application. Delete the binary and the log file.
-	rm -rf dist/*
-
 unit-tests: ## Run unit tests
-	make build
 	make clean
+	make build
 	touch coverage-units.out
 
 integration-tests: ## Run integration tests
@@ -39,6 +37,9 @@ package: ## Generate an archive (a zip file named awesome-website.zip).
 
 deploy:	## Deploy the website to Netlify.
 	netlify deploy --prod --dir=./dist/
+
+clean:	## Stop the application. Delete the binary and the log file.
+	$(RM) $(TARGET) $(TARGET).log $(COVERAGE)-units.out $(COVERAGE)-integrations.out dist/* awesome-website.zip
 
 help:	## Print the list of targets with descriptions.
 	@cat Makefile | grep '##' | tr -d '##'

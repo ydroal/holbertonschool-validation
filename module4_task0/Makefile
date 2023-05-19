@@ -16,10 +16,7 @@ post: ## Create a new blog post with filename and title come from the environmen
 	sed -i 's/title: .*/title: "$(POST_TITLE)"/' content/posts/$(POST_NAME).md
 
 clean:	## Stop the application. Delete the binary and the log file.
-	@if pgrep -x $(TARGET) > /dev/null; then \
-		pkill $(TARGET); \
-	fi
-	@$(RM) $(TARGET) $(TARGET).log $(COVERAGE)-units.out $(COVERAGE)-integrations.out dist/* awesome-website.zip	
+	$(RM) dist/* $(TARGET) $(TARGET).log $(COVERAGE)-units.out $(COVERAGE)-integrations.out awesome-website.zip
 
 unit-tests: ## Run unit tests
 	make build

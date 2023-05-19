@@ -1,0 +1,29 @@
+---
+name: release_drafter
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+permissions:
+  contents: read
+
+jobs:
+  update_release_draft:
+    permissions:
+      contents: write
+      pull-requests: write
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: release-drafter/release-drafter@v5
+        # (Optional) specify config name to use, relative to .github/. Default:
+        # release-drafter.yml
+        with:
+          publish: true
+          config-name: release_drafter.yml
+        # disable-autolabeler: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

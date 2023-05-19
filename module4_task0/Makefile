@@ -9,6 +9,7 @@ DOCKER_IMAGE=golang:1.20.4-buster
 
 build:	## Generate the source code of the application to a binary.
 	$(HUGO) -d dist
+	touch awesome-api
 
 post: ## Create a new blog post with filename and title come from the environment variables.
 	$(HUGO) new posts/$(POST_NAME).md
